@@ -64,5 +64,10 @@ SERVICE: contiene le classi:
 CONTROLLER: contiene la classe Control gestisce le richieste del client e converte le risposte da oggetti Java a stringhe in formato JSON.
 
 
+# argomento trattato nel file scaricato
+
+La Tabella scaricata in formato csv è lo STRESS TEST delle banche o il programma di valutazione del capitale di vigilanza è una valutazione della riserva di capitale in corso da parte del Cebs (Committee of European Banking Supervisors) in collaborazione con la Banca centrale europea e la commissione Europa su le principali banche europee. Il risultato ha evidenziato una buona capacità delle banche europee a reggere un eventuale peggioramento dell'economia reale nel prossimo biennio.L'obiettivo dello stress test a livello dell'UE è valutare la resilienza delle banche dell'UE a una serie comune di sviluppi economici sfavorevoli al fine di identificare potenziali rischi, informare le decisioni di vigilanza e aumentare la disciplina di mercato.
+Tutte le statistiche e i dati posso essere visualizzati nella pagina "http://data.europa.eu/".
+
 
 
