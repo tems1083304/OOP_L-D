@@ -22,36 +22,21 @@ public class Tabella implements Serializable {
 	
 	/**  LEGGENDA DEI PARAMETRI DELLA TABELLA
 	 * 
-	 * 1) Frequenza [FREQ]	
-	 * fisso Annuale [A]
-	
-	   2) Entità geopolitica [GEO]
-	      Unione Europea (28 paesi) [EU28]
-	      Belgio [BE]
-	      Bulgaria [BG]
-	      Repubblica Ceca [CZ]
-	      Danimarca [DK]
-	      Germania  [DE]
-	      Estonia [EE]
-	      Irlanda [IE]
-	      Grecia [EL]
-	      Spagna [ES]
-	      Francia [FR]
-	     
-	  3)unità di misura [UNIT]	
-	      Milioni di euro (ai prezzi dell'anno precedente) [MEUR_KP_PRE]
-	      Percentuale del totale [PC_TOT]
-	      
-	  4)strumenti d'aiuto [AID_INSTR]
-          Partecipazione azionaria [EQUIT]
-	      Concedi [GRANT]
-	      Garanzia [GUAR]
-	      Prestito agevolato [SOFTL]
-	      Differimento fiscale [TAXD]
-	      Esenzione fiscale [TAXE]
-	      Altro [OTH]
-	     
-	    5) periodo
+	 * 
+1) Country_code: codice del paese della Banca
+2) LEI_code: un identificativo bancario
+3) Bank_Name: nome della banca
+4) Period: periodo di tempo
+5) item: codice di ogni variabile
+6) Scenario: codice dello scenario
+   -1 Dati reali
+   -11 cifre rideterminate
+   -2 Scenario di base
+   -3 Scenario avverso
+7) portfoglio: numero del portafoglio
+8) c_rank: rango del paese
+9) exp: esposizione
+10) Importo: valore assunto dalla variabile
 	*/
 	
 	public Tabella (  String country_code,String lei_code,String bank_name,int period,int item, int scenario,int portfolio,int country,int c_rank,int exp,int perf_status,int status,float amount ) {
@@ -73,7 +58,7 @@ public class Tabella implements Serializable {
 	
 
 
-
+//GENERA GETTER E SETTER
 	
 
 	public String getCountry_code() {
@@ -311,7 +296,7 @@ public class Tabella implements Serializable {
 
 
 	@Override                    //Indica che una dichiarazione di un metodo ha lo scopo di sovrascrivere la dichiarazione di un metodo in un supertipo.
-    public String toString() {  //metodo per la stampa,restituisci una stringa contenente il valore dei vari campi
+    public String toString() {      //metodo per la stampa,restituiscE una stringa contenente il valore dei vari campi
 		return "Tabella{" +
         "nome paese='" + country_code + '\'' +
         ", codice='" + lei_code + '\'' +
