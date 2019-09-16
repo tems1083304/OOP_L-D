@@ -11,14 +11,14 @@ SPRING,Spring è un framework che si basa sul concetto dell' IoC ( inversion of 
 I dati richiesti vengono estratti in formato JSON a partire da un file CSV estratto da un url fornito dal professore,tutte le specifiche sono descritte nel file pdf.
 Verrà poi utilizzato POSTMAN per la visualizzazione delle richieste.
 
-# cosa può fare il software?
+# COSA PUO' FARE IL SOFTWARE?
 1)Restituisce i metadata del dataset : "Rotta: /metadata".
 
 2)Restituisce i dati (eventualmente filtrati) : "Rotta: /data".
 
 3)Restituisce statistiche sui dati (eventualmente filtrati) : "Rotta: /stats".
 
-# come inserire un filtro?
+# COME INSERIRE UN FILTRO?
 Il filtro va inserito nel body della richiesta POST come stringa RAW e deve avere il seguente formato:
 
 {"field" : {"operator" : refvalue}}
@@ -64,7 +64,7 @@ SERVICE: contiene le classi:
 CONTROLLER: contiene la classe Control gestisce le richieste del client e converte le risposte da oggetti Java a stringhe in formato JSON.
 
 
-# argomento trattato nel file scaricato
+# ARGOMENTO TRATTATO NEL SOFTWARE
 
 La Tabella scaricata in formato csv è lo STRESS TEST delle banche o il programma di valutazione del capitale di vigilanza è una valutazione della riserva di capitale in corso da parte del Cebs (Committee of European Banking Supervisors) in collaborazione con la Banca centrale europea e la commissione Europa su le principali banche europee. Il risultato ha evidenziato una buona capacità delle banche europee a reggere un eventuale peggioramento dell'economia reale nel prossimo biennio.L'obiettivo dello stress test a livello dell'UE è valutare la resilienza delle banche dell'UE a una serie comune di sviluppi economici sfavorevoli al fine di identificare potenziali rischi, informare le decisioni di vigilanza e aumentare la disciplina di mercato.
 Tutte le statistiche e i dati posso essere visualizzati nella pagina "http://data.europa.eu/".
