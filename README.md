@@ -4,7 +4,7 @@ Repository for exam project
 Progetto d'esame per il corso di Programmazione ad Oggetti. Ingegneria Informatica e dell’Automazione (Università Politecnica delle Marche).
 Realizzato da Davide Olivieri e Lorenzo Tribuiani.
 
-# Introduzione
+# INTRODUZIONE
 l progetto assegnato ha lo scopo di utilizzare un dataset su cui vengono gestite diverse query attraverso le API GET REST E POST,dell'applicazione
 SPRING,Spring è un framework che si basa sul concetto dell' IoC ( inversion of controll ) ciò significa che diversamente da altri framework java 
 è SPRING stesso ad avere il controllo del flusso applicativo e non il programmatore.
