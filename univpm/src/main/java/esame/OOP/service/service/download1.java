@@ -29,12 +29,12 @@ public class download1 {
 	    private List<Map> metadata = new ArrayList<Map>();
 		String data = "";//inizializza variabili
 		String line = "";
-		
+		String url = "http://data.europa.eu/euodp/data/api/3/action/package_show?id=eu-wide-stress-test-results-2018-asset-quality";
 		
 		public download1(String url,String Nome) {
 			
 			File NomeFile = new File (Nome); //trasformo da string ad oggetto per poi dare il nome al file con FileUtils.copyURLToFile
-			
+			this.url = url;
 			try {
 				
 				URLConnection openConnection = new URL(url).openConnection();		 //apro la connessione all'url
