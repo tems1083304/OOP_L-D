@@ -39,6 +39,7 @@ public class restituzioni  {
           
       //METODO CHE RESTITUISCE LE STATISTICHE A TUTTI I CAMPI 
         public List<Map> prendiStats() throws IllegalArgumentException, InvocationTargetException, ReflectiveOperationException {
+		
              Field[] field = Tabella.class.getDeclaredFields();      //Questo metodo restituisce la matrice di oggetti Field che rappresentano tutti i campi dichiarati di questa classe.
              List<Map> list = new ArrayList<>();
              for (Field f : field) {
@@ -51,14 +52,14 @@ public class restituzioni  {
          
        //METODO PRIVATO PER L'ESTRAZIONE DALLA LISTA DEL DATASET DEI VALORI RELATIVI AD UN CAMPO
          private List prendiValori(String fieldName) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-        	 //IllegalAccessException interviene se vogliono accedere a un metodo privato
+        	 //IllegalAccessException interviene se vogliono accedere a un metodo privato .
         	 //IllegalArgumentException interviene se passiamo come parametro uno non valido
         	 //se il metodo invocato con API genera un'eccezione, l'API di riflessione inserirà l'eccezione in un InvocationTargetException
         	    List<Object> valori = new ArrayList<>();
         	    try {
         	        
         	        for (Tabella t: Ta) {                         //scorro la lista per cercare i valori del campo
-        	            Method m = Tabella.class.getMethod("get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1));
+        	            Method m = Tabella.class.getMethod("get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1)); //creo il metodo per l'estrazione
         	            Object value = m.invoke(t);             //invoco il metodo sopra creato
         	            valori.add(value);
         	        }
