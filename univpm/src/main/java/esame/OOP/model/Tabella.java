@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 
+//classe per modellare il singolo record del dataset,utilizzo serializable per rendere salvabili gli oggetti su file
 @SuppressWarnings("serial")
 public class Tabella implements Serializable {
 	
