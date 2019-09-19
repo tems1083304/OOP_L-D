@@ -40,7 +40,7 @@ public class control {
 	private restituzioni ServRes;
 	
 @Autowired  //viene lanciato automaticamente all'avvio da Spring e esegue il collegamento al Service
-           ////stiamo dichiarando che il controllore dipende dal Service
+           //stiamo dichiarando che il controllore dipende dal Service
 
 public control (download1 ServDow,restituzioni Servres)
 { this.ServDow = ServDow;
@@ -87,14 +87,14 @@ private static Map<String, Object> parseFiltro(String body) {
     if (rawValue instanceof Map) {    //se la chiave è di tipo Map
         Map filter = (Map) rawValue; //assegno a filter il valore della chiave
         System.out.println(filter);
-        operator = ((String) filter.keySet().toArray()[0]).toLowerCase(); //converte la chiave in stringa minuscola
-        refValue = filter.get(operator); //gli assegno l'operatore
+        operator = ((String) filter.keySet().toArray()[0]).toLowerCase();  //gli assegno l'operatore e converte tutti i caratteri di questa stringa in lettere minuscole
+        refValue = filter.get(operator); //converte la chiave in stringa minuscola
     } else {
         operator = "$eq";
         refValue = rawValue;
     }
     Map<String, Object> filter = new HashMap<>();
-    filter.put("operator", operator);
+    filter.put("operator", operator); //metti chiavi-valore
     filter.put("field", fieldName);
     filter.put("ref", refValue);
     return filter;
