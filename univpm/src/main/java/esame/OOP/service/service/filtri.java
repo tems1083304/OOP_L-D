@@ -14,7 +14,7 @@ import model.Tabella;
 public abstract class filtri {
 	
 
-	public static boolean check(Object valore, String operatore, Object riferimento) {
+	public static boolean check(Object valore, String operatore, Object riferimento) { //creo un metodo static dato che non ha bisogno di creare oggetti
 		if (riferimento instanceof Number && valore instanceof Number) {	//se riferimento e valore sono due numeri
 			Double rif = ((Number)riferimento).doubleValue();              //converto il riferimento in double
 			Double val = ((Number)valore).doubleValue();                  //converto il valore in double
@@ -27,7 +27,8 @@ public abstract class filtri {
 				else if ( operatore.equals("$lt"))
 					return val < rif;
 				else throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"INVALID OPERATOR");
-				
+			        // È una RuntimeException per le eccezioni utilizzate per applicare un codice di stato a una risposta HTTP
+			       // BAD_REQUEST è la costante di enumerazione
 				
 		} else if (riferimento instanceof String && valore instanceof String) { //se riferimento e valore sono due stringhe
 			 String strRif = ((String)riferimento);                            //le converto
@@ -42,7 +43,7 @@ public abstract class filtri {
 	
 
 			
-		//METODO CHE FILTRA LA LISTA DEI VALORI DI UN CAMPO
+	    //METODO CHE FILTRA LA LISTA DEI VALORI DI UN CAMPO
 	   // in "values" c'è la lista da controllare
 	  // in "ref" il valore di riferimento
 		
