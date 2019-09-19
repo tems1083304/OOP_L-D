@@ -22,68 +22,70 @@ import org.springframework.expression.ParseException;
 
 import model.Tabella;
 
-
+//classe  che esegue il parsing del dataset in formato JSON includendo nel programma librerie esterne per utilizzare le classi preimpostate JSON,
+//effettua il download del file in csv e lo salva,genere poi metadati da conservare e restituire.
 public class download1 {
 	
-	    private List<Tabella> Ta = new ArrayList<Tabella>();
+	    private List<Tabella> Ta = new ArrayList<Tabella>();  
 	    private List<Map> metadata = new ArrayList<Map>();
-		String data = "";//inizializza variabili
+		String data = "";
 		String line = "";
 		String url = "http://data.europa.eu/euodp/data/api/3/action/package_show?id=eu-wide-stress-test-results-2018-asset-quality";
 		
 		public download1(String url,String Nome) {
 			
-			File NomeFile = new File (Nome); //trasformo da string ad oggetto per poi dare il nome al file con FileUtils.copyURLToFile
+			File NomeFile = new File (Nome); //trasformo da string ad oggetto per poi dare il nome al file 
 			this.url = url;
 			try {
 				
 				URLConnection openConnection = new URL(url).openConnection();		 //apro la connessione all'url
 				openConnection.addRequestProperty("User_DAVIDE", "Google Chrome");	//Con l'utente "User-Agent" e "Google Chrome"
-				InputStream PrendiDati = openConnection.getInputStream();		   //Raccoglie il flusso dei dati
+				InputStream PrendiDati = openConnection.getInputStream();	       //Raccoglie il flusso dei dati
 				
 				 try {
-				  	 InputStreamReader LeggiDati = new InputStreamReader( PrendiDati ); //legge il flusso dei dati
+				  	 InputStreamReader LeggiDati = new InputStreamReader( PrendiDati ); //legge il flusso dei dati ,controllato da un try-catch
 					 BufferedReader Buffer = new BufferedReader( LeggiDati );	
 				   														
-					 while ( ( line = Buffer.readLine() ) != null ) {	              //legge i dati una linea alla volta e li mette in data
+					 while ( ( line = Buffer.readLine() ) != null ) {	           //legge i dati una linea alla volta e li mette in data
 						 data+= line;
 					 }
 				 } finally {
 					 PrendiDati.close();		                                 //dopo aver raccolto tutti i dati chiude il flusso
 				 }
 				 
-				JSONObject oggetto = (JSONObject) JSONValue.parseWithException(data);	 //Inizia il parsing dei dati come JSON Object
-				JSONObject temp = (JSONObject) (oggetto.get("result"));			        //Cerca nel JSON il "result" e lo apre in "temp"
-				JSONArray temp2 = (JSONArray) (temp.get("resources"));		           //Poi cerca tutti i resources tra le parentesi {} del result
+				JSONObject oggetto = (JSONObject) JSONValue.parseWithException(data);	 //Inizia il parsing dei dati come JSON Object,utilizzo parseWithException() per non ignorare l'eccezione.
+				JSONObject temp = (JSONObject) (oggetto.get("result"));			//Cerca nel JSON il "result" e lo apre in "temp"
+				JSONArray temp2 = (JSONArray) (temp.get("resources"));		       //Poi cerca tutti i resources tra le parentesi {} del result
 				  
 				for( Object x : temp2){
-				try {	                                               //Con questo ciclo for controlla ogni resources
+				try {	                                                            //Con questo ciclo for-each controlla ogni resources
 				
 				    if ( x instanceof JSONObject ) {					 
 				        JSONObject y = (JSONObject)x; 				
-				        String format = (String)y.get("format");		      //controlla i formati e li mette dentro format
-				        URL tempurl = new URL ((String)y.get("url"));	     //idem per url, appena ne vede uno lo mette in url
-				        if(format.equals("csv")) {						    //Se il formato di uno di quei url è cvs (ovvero il file che cerchiamo noi)
-				        	FileUtils.copyURLToFile(tempurl, NomeFile);	   //metodo che scarica il file dall'url e lo mette nella cartella
+				        String format = (String)y.get("format");	     //controlla i formati e li mette dentro la stringa format
+				        URL tempurl = new URL ((String)y.get("url"));	    //idem per url, appena ne vede uno lo mette in url
+				        if(format.equals("csv")) {		           //Se il formato di uno di quei url è cvs 
+				        	FileUtils.copyURLToFile(tempurl, NomeFile);	   // scarica il file dall'url e lo mette nella cartella tramite FileUtils.copyURLToFile
 				            System.out.println( "Il file è stato scaricato" );
 				        }
 				       }
 				    
-				} 
-				catch (Exception e) { e.printStackTrace(); }// url non adatto
-			
+				} catch (MalformedURLException e) {  //eccezzione in caso di URL non valido
+		                  System.err.println("URL Errato");
+		                  e.printStackTrace();             //"printStackTrace" mi dice cosa è successo e dove nel codice è successo. 
+				
 		}
 				String lines = "";
 		        
 		        String csvFile = "TRA_CR.csv";
 		        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {  //in questo modo br viene chiuso automaticamente alla fine
 
-		        lines = br.readLine();
-	           do  {                             // leggo il file riga per riga fino alla fine
-	                                                       // trim elimina i caratteri non visibili, split divide la riga in corrispondenza del separatore
+		        lines = br.readLine();  //salto la prima riga
+	           do  {                       // leggo il file riga per riga fino alla fine
+	                                      // trim elimina i caratteri non visibili, split divide la riga in corrispondenza del separatore
 	                String[] csvLineSplitted = lines.trim().split(";");
-	                                                                    // vado a estrarre i valori dei singoli campi dalla riga effettuando eventuali conversioni
-	                String country_code = csvLineSplitted[0].trim().toUpperCase(); 
+	                                     // vado a estrarre i valori dei singoli campi dalla riga effettuando eventuali conversioni
+	                String country_code = csvLineSplitted[0].trim().toUpperCase(); //toUpperCase per convertite la stringa in  maiuscolo
 	                String lei_code = csvLineSplitted[1].trim().toUpperCase();
 	                String bank_name = csvLineSplitted[2].trim().toUpperCase();
 	                int period = Integer.parseInt(csvLineSplitted[3].trim());  //converte in intero
@@ -96,28 +98,28 @@ public class download1 {
 	                int perf_status = Integer.parseInt(csvLineSplitted[10].trim());
 	                int status = Integer.parseInt(csvLineSplitted[11].trim());
 	                float amount = Float.parseFloat(csvLineSplitted[12].trim());
-	                
+	                //creo il nuovo oggetto cpn i valori trovati
 	               Tabella nuova = new Tabella( country_code, lei_code, bank_name, period, item, scenario, portfolio, country, c_rank, exp, perf_status, status, amount );
-	                // aggiunge l'oggetto appena creato alla lista
+	                // aggiungo l'oggetto appena creato alla lista
 	                Ta.add(nuova);
 			
 		
 	} while ((line = br.readLine()) != null);
 	 br.close(); // chiudo il buffer
-} catch (Exception e) {e.printStackTrace(); }
+} catch (Exception e) {e.printStackTrace(); } //utilizzo ancora "printStackTrace" per capire in fase di debugging dove e perche' si e' verificato un problema
 
-		Field[] fields = Tabella.class.getDeclaredFields(); //estrae gli attributi della classe TAbella
+        Field[] fields = Tabella.class.getDeclaredFields(); //creo un campo (una classe) che mi estrae gli attributi della classe Tabella
 
         for (Field f : fields) {
-            Map<String, String> map = new HashMap<String,String>();
-            //andiamo ad inserire le coppie chiave valore
-            map.put("alias", f.getName());
-            map.put("sourceField", f.getName().toUpperCase());//nome del campo in csv
+            Map<String, String> map = new HashMap<String,String>(); // mappa che memorizza coppie (chiave, valore), per velocizzare le operazioni di inserimento e ricerca
+                                                       
+            map.put("alias", f.getName());                       //"getName" restituisce il nome della classe
+            map.put("sourceField", f.getName().toUpperCase());  // nome del campo in csv
             map.put("type", f.getType().getSimpleName());
-            metadata.add(map);
+            metadata.add(map);                                //aggiungo il tutto all'Array metadata
         }
-}catch (IOException | ParseException e) { e.printStackTrace(); }//Eccezioni in caso di parse sbagliato
-catch (Exception e) { e.printStackTrace(); }//o di url non adatto
+}
+   catch (Exception e) { e.printStackTrace(); }
 	// TODO: handle exception
 }
          
