@@ -72,7 +72,7 @@ public abstract class statistiche {
 		 public static Map<Object, Integer> contau (List list) {
 		        Map<Object, Integer> mappa = new HashMap<>();
 		        for (Object ele : list) {
-		            if (mappa.containsKey(ele)) {    //se la mappa contiene già la chiave (elemento già trovato precedentemente)
+		            if (mappa.containsKey(ele)) {        //se la mappa contiene già la chiave (elemento già trovato precedentemente)
 		                mappa.replace(ele, mappa.get(ele) +1);   //incrementa il valore, ovvero il contatore, di uno
 		            } else {
 		                mappa.put(ele, 1);       // altrimenti inserisce nella mappa la nuova chiave trovata con contatore inizializzato a uno
@@ -94,13 +94,13 @@ public abstract class statistiche {
 		Map<String, Object> map = new HashMap<>();        
 		map.put("field", fieldName);                      //metti chiave-valore       
 		if (!list.isEmpty()) {                           //se la lista non è vuota	            
-			
+			if (list.get(0) instanceof Number) {        // calcola le statistiche numeriche
 	                
 	                List<Number> listNum = new ArrayList<>(); //creo una lista di numeri
 	                for (Object elem : list){
-	                    listNum.add(((Number) elem));  //aggiungo il numero alla lista
+	                    listNum.add(((Number) elem));
 	                }
-	                map.put("avg", avg(listNum));  //metti chiave-valore, dove il valore è uno dei metodi sopra implementati
+	                map.put("avg", avg(listNum));
 	                map.put("min", min(listNum));
 	                map.put("max", max(listNum));
 	                map.put("std", std(listNum));
@@ -111,9 +111,14 @@ public abstract class statistiche {
 	                map.put("contau", contau(list));
 	                map.put("conta", conta(list));
 	            }
+		}
 		        return map;
-	        }
+	        
+		
+       }
+}
 	       
+
 
 
 
