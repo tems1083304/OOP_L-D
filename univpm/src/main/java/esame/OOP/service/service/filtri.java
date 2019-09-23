@@ -1,16 +1,15 @@
-package esame.OOP.service;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.lang.reflect.Method;
+package it.univpm.Progetto.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import model.Tabella;
+
 
 // Classe astratta che implementa i metodi per filtrare i campi
-
+@Service
 public abstract class filtri {
 	
 
@@ -57,4 +56,3 @@ public abstract class filtri {
 	        return indice;} 
 	}                                                        //restituisco la lista degli indici
 	    
-	
