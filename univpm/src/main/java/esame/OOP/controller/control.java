@@ -1,4 +1,6 @@
-package controller;
+package it.univpm.Progetto.controller;
+
+
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -7,49 +9,47 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.json.BasicJsonParser;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import esame.OOP.service.download;
-import esame.OOP.service.download1;
-import esame.OOP.service.filtri;
-import esame.OOP.service.restituzioni;
-import model.Tabella;
+import it.univpm.Progetto.model.Tabella;
+import it.univpm.Progetto.service.restituzioni;
 
 //CONTROLLER PER GESTIRE LE RICHIESTE DEL CLIENTE
 
-@RestController //REST è un modello architetturale che permette la comunicazione tra sistemi remoti connesi ad internet
+//@RestController //REST è un modello architetturale che permette la comunicazione tra sistemi remoti connesi ad internet
                //è un Web Service stateless (privo di memoria);attraverso degli oggetti di tipo CONTROLLER,Spring permette di gestire 
               //le richieste inviate al server. 
-@EnableAutoConfiguration    //Abilita la configurazione automatica del contesto dell'applicazione Spring, tentando di indovinare e configurare i bean
-public class control {
+@RestController
+public class controller {
 	
-	@RequestMapping("/")    //mappa una richiesta HTTP su un metodo
-	String home() {  
-		return "Hello World!";  //viene visualizzato in localhost:8080 sul browser
-	}
 	
-	private download1 ServDow;
+	
 	private restituzioni ServRes;
 	
-@Autowired  //viene lanciato automaticamente all'avvio da Spring e esegue il collegamento al Service
-           //stiamo dichiarando che il controllore dipende dal Service
-
-public control (download1 ServDow,restituzioni Servres)
-{ this.ServDow = ServDow;
+//@Autowired                      //viene lanciato automaticamente all'avvio da Spring e esegue il collegamento al Service
+                               //stiamo dichiarando che il controllore dipende dal Service
+	@Autowired
+public controller (restituzioni ServRes)
+{ 
   this.ServRes = ServRes;
 }
 
+	@GetMapping("/hello")    //mappa una richiesta HTTP su un metodo
+	public String home() {  
+		System.out.println("hello world"); 
+		return "hello world";//viene visualizzato in localhost:8080 sul browser
+	}
+	
+	
 //REST PERMETTE LO SCAMBIO DI MESSAGGI TRAMITE LE RICHIESTE "GET" e "POST"
 @GetMapping(value="/dati") //mappa le richieste HTTP GET su metodi di gestione specifici
-                    //la rotta è la parte dell'url dopo il dominio, es.: localhost:8080/dati
+                          //la rotta è la parte dell'url dopo il dominio, es.: localhost:8080/dati
 
 public List prendiDati() {
 	return ServRes.prendiDati();
@@ -110,8 +110,6 @@ public List prendiFiltri(@RequestBody String body) throws IllegalAccessException
     return ServRes.prendiFiltri(fieldName, operator, refValue); //lista degli oggetti che soddisfano il filtro
 }
 }
-
-
 
 
 
