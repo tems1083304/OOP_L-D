@@ -1,12 +1,14 @@
-package esame.OOP.service;
+package it.univpm.Progetto.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//CLASSE ASTRATTA PER IMPLEMENTARE METODI PER IL CALCOLO DI VALORI STATISTICI
+import org.springframework.stereotype.Service;
 
+//CLASSE ASTRATTA PER IMPLEMENTARE METODI PER IL CALCOLO DI VALORI STATISTICI
+@Service
 public abstract class statistiche {
 	
 	
@@ -117,9 +119,6 @@ public abstract class statistiche {
 		
        }
 }
-	       
-
-
 
 
 
